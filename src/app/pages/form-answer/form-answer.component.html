@@ -1,27 +1,32 @@
-<nz-card style="width:600px;">
-  <form nz-form name="form" nzLayout="vertical">
-    <nz-form-item>
-      <nz-form-label nzRequired>Please tell us about yourself: </nz-form-label>
-      <nz-form-control>
-        <nz-form-label>{{ data.info }}</nz-form-label>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item *ngFor="let question of data.questions">
-      <nz-form-label *ngIf="question.qReuired" nzRequired>{{ question.qContent }}: </nz-form-label>
-      <nz-form-label *ngIf="!question.qReuired">{{ question.qContent }}: </nz-form-label>
-      <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
-        <nz-form-item *ngFor="let answer of question.ans; let idx=index">
-          <label id="answer-{{idx}}" >{{ answer.value }}</label>
-          <ng-container *ngIf="answer.value === 'others' && answer.status">
-            <label>{{ answer.subValue }}</label>
-          </ng-container>
-        </nz-form-item>
-      </nz-form-control>
-      <ng-template #paragraph>
-        <nz-form-control>
-  
-        </nz-form-control>
-      </ng-template>
-    </nz-form-item>
-  </form>
-</nz-card>
+    <div nz-row nzJustify="center" style="margin-top: 1rem;">
+      <nz-card style="width:600px;">
+        <form nz-form name="form" nzLayout="vertical">
+          <nz-form-item>
+            <nz-form-label nzRequired>
+              <span nz-typography><strong>Please tell us about yourself: </strong></span>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-form-label>{{ data?.info }}</nz-form-label>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item *ngFor="let question of data.questions">
+            <nz-form-label class="fw-600" *ngIf="question.qReuired" nzRequired><span nz-typography><strong>{{ question.qContent }}: </strong></span></nz-form-label>
+            <nz-form-label class="fw-600" *ngIf="!question.qReuired"><span nz-typography><strong>{{ question.qContent }}: </strong></span></nz-form-label>
+            <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
+              <nz-form-item *ngFor="let answer of question.ans; let idx=index">
+                <label *ngIf="answer.status">
+                  <span nz-typography >{{ answer.value }}</span>
+                  <span nz-typography *ngIf="answer.value === 'others' && answer.status"> - {{ answer.subValue }}</span>
+                </label>
+              </nz-form-item>
+            </nz-form-control>
+            <ng-template #paragraph>
+              <nz-form-control>
+        
+              </nz-form-control>
+            </ng-template>
+          </nz-form-item>
+          <a nz-button [nzSize]="size" (click)="backFormBuilder()" nzType="link">Back to Forms Builder</a>
+        </form>
+      </nz-card>
+    </div>

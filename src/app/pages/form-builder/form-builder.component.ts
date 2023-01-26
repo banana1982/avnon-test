@@ -1,5 +1,5 @@
 import { IQuestion } from './../question-dialog/question.model';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 
@@ -15,17 +15,25 @@ export class FormBuilderComponent implements OnInit {
   questions: IQuestion[] = [];
   size: NzButtonSize = 'small';
   form: {
-    info: String | '',
+    info: string,
     questions: IQuestion[],
   } = {
     info: '',
     questions: []
   };
-  @ViewChild(FormBuilderComponent) formBuilderComponent: FormBuilderComponent | undefined;
   constructor(
     private router: Router
     ) {
-    
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation ? navigation.extras.state as {
+      info: string,
+      questions: IQuestion[],
+    } : {
+      info: '',
+      questions: []
+    };
+    this.form = state;
+    this.questions = state.questions;
   }
 
   ngOnInit(): void {
@@ -61,5 +69,6 @@ export class FormBuilderComponent implements OnInit {
     });
     this.form.questions = this.questions;
     console.log(this.questions);
+    console.log(this.form);
   }
 }

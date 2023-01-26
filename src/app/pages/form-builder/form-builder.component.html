@@ -1,37 +1,40 @@
-<nz-card style="width:600px;">
-  <form nz-form #f="ngForm" novalidate name="form" (ngSubmit)="handleReview()" nzLayout="vertical">
-    <nz-form-item>
-      
-      <nz-form-label nzRequired>Please tell us about yourself: </nz-form-label>
-      <nz-form-control>
-        <textarea rows="4" nz-input required [(ngModel)]="form.info"></textarea>
-      </nz-form-control>
-    </nz-form-item>
-    <ng-container *ngIf="questions && questions.length > 0">
-      <nz-form-item *ngFor="let question of questions; let i=index">
-        <nz-form-label *ngIf="question.qReuired" nzRequired>{{ question.qContent }}: </nz-form-label>
-        <nz-form-label *ngIf="!question.qReuired">{{ question.qContent }}: </nz-form-label>
-        <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
-          <nz-form-item *ngFor="let answer of question.ans; let idx=index">
-            <label nz-checkbox id="answer-{{idx}}" (nzCheckedChange)="hancleCheckAnswer($event, i, idx)" >{{ answer.value }}</label>
-            <ng-container *ngIf="answer.value === 'others' && answer.status">
-              <nz-form-control>
-                <textarea rows="4" nz-input [(ngModel)]="answer.subValue" [ngModelOptions]="{standalone: true}"></textarea>
-              </nz-form-control>
-            </ng-container>
-          </nz-form-item>
+<div nz-row nzJustify="center" style="margin-top: 1rem;">
+  <nz-card style="width:600px;">
+    <form nz-form #f="ngForm" novalidate name="form" (ngSubmit)="handleReview()" nzLayout="vertical">
+      <nz-form-item>
+        
+        <nz-form-label nzRequired>Please tell us about yourself: </nz-form-label>
+        <nz-form-control>
+          <textarea rows="4" nz-input required [(ngModel)]="form.info" [ngModelOptions]="{standalone: true}"></textarea>
         </nz-form-control>
-        <ng-template #paragraph>
-          <nz-form-control>
-  
-          </nz-form-control>
-        </ng-template>
       </nz-form-item>
-    </ng-container>
-    <a nz-button [nzSize]="size" (click)="showModal()" nzType="link">Add New Question</a>
-    <div nz-row nzJustify="end">
-      <button nz-button nzType="primary">Review my answers ></button>
-    </div>
-  </form>
-</nz-card>
+      <ng-container *ngIf="questions && questions.length > 0">
+        <nz-form-item *ngFor="let question of questions; let i=index">
+          <nz-form-label *ngIf="question.qReuired" nzRequired>{{ question.qContent }}: </nz-form-label>
+          <nz-form-label *ngIf="!question.qReuired">{{ question.qContent }}: </nz-form-label>
+          <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
+            <nz-form-item *ngFor="let answer of question.ans; let idx=index">
+              <label nz-checkbox id="answer-{{idx}}" [nzChecked]="answer.status" (nzCheckedChange)="hancleCheckAnswer($event, i, idx)" >{{ answer.value }}</label>
+              <ng-container *ngIf="answer.value === 'others' && answer.status">
+                <nz-form-control>
+                  <textarea rows="4" nz-input [(ngModel)]="answer.subValue" [ngModelOptions]="{standalone: true}"></textarea>
+                </nz-form-control>
+              </ng-container>
+            </nz-form-item>
+          </nz-form-control>
+          <ng-template #paragraph>
+            <nz-form-control>
+    
+            </nz-form-control>
+          </ng-template>
+        </nz-form-item>
+      </ng-container>
+      <a nz-button [nzSize]="size" (click)="showModal()" nzType="link">Add New Question</a>
+      <div nz-row nzJustify="end">
+        <button nz-button nzType="primary">Review my answers ></button>
+      </div>
+    </form>
+  </nz-card>
+</div>
+
 <app-question-dialog [visible]="isVisible" (ngOnAddNew)="handleAddNewQuestion($event)" [data]="input"></app-question-dialog>
