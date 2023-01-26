@@ -1,5 +1,5 @@
 import { IQuestion } from './question.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NzButtonSize } from 'ng-zorro-antd/button';
 
@@ -11,6 +11,7 @@ import { NzButtonSize } from 'ng-zorro-antd/button';
 export class QuestionDialogComponent implements OnInit {
   @Input() data: IQuestion | undefined;
   @Input() visible = false;
+  @Output() ngOnAddNew: EventEmitter<any> = new EventEmitter();
   value: any;
   checked1: false | undefined;
   checked2: false | undefined;
@@ -25,6 +26,9 @@ export class QuestionDialogComponent implements OnInit {
     return this.qForm.get('answers') as FormArray;
   }
   ngOnInit(): void {
+    this.initForm();
+  }
+  initForm() {
     this.qForm = this.fb.group({
       qType: [this.data?.qType || 'checkbox', [Validators.required]],
       qContent: [this.data?.qContent ||  '', [Validators.required]],
@@ -42,15 +46,14 @@ export class QuestionDialogComponent implements OnInit {
     }
   }
   handleOk(): void {
-    console.log('Button ok clicked!');
-    console.log(this.qForm.get('qContent')?.hasError('required'));
-    
     if (!this.qForm.invalid) {
       this.visible = false;
-      // this.isConfirmLoading = true;
       console.log(this.qForm.value);
       const data = this.qForm.value as IQuestion;
+      data.answers?.push('others');
       this.questions.push(data);
+      this.ngOnAddNew.emit(this.questions);
+      this.initForm();
     }
   }
 

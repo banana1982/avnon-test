@@ -1,10 +1,25 @@
 <nz-card style="width:600px;" *ngIf="sources && sources.length > 0">
-  <form nz-form [formGroup]="formBuild" (ngSubmit)="submitForm()">
+  <form nz-form name="form" [formGroup]="formBuild" (ngSubmit)="submitForm()" nzLayout="vertical">
     <nz-form-item>
-      <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Please tell us about yourself</nz-form-label>
-      <nz-form-control [nzSm]="16" [nzXs]="24">
+      
+      <nz-form-label nzRequired>Please tell us about yourself: </nz-form-label>
+      <nz-form-control>
         <textarea rows="4" nz-input required formControlName="info"></textarea>
       </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngFor="let question of sources">
+      <nz-form-label *ngIf="question.qReuired" nzRequired>{{ question.qContent }}: </nz-form-label>
+      <nz-form-label *ngIf="!question.qReuired">{{ question.qContent }}: </nz-form-label>
+      <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
+        <nz-form-item *ngFor="let answer of question.answers; let idx=index">
+          <label nz-checkbox id="answer-{{idx}}" >{{ answer }}</label>
+        </nz-form-item>
+      </nz-form-control>
+      <ng-template #paragraph>
+        <nz-form-control>
+
+        </nz-form-control>
+      </ng-template>
     </nz-form-item>
   </form>
 </nz-card>

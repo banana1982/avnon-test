@@ -1,4 +1,3 @@
-
-<app-question-dialog [visible]="isVisible"></app-question-dialog>
 <button nz-button [nzType]="'primary'" (click)="showModal()"><span>Add Question</span></button>
-<app-form-builder [sources]="this.qForm.value"></app-form-builder>
+<app-question-dialog [visible]="isVisible" (ngOnAddNew)="handleAddNewQuestion($event)" [data]="input"></app-question-dialog>
+<app-form-builder [sources]="questions"></app-form-builder>

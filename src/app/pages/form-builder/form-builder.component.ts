@@ -9,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FormBuilderComponent implements OnInit {
   @Input() sources: IQuestion[] = [];
-  formBuild: FormGroup | undefined;
+  formBuild: FormGroup = new FormGroup({});
   constructor(
     private fb: FormBuilder,
   ) {
