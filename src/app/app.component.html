@@ -1,18 +1,4 @@
-<!-- NG-ZORRO -->
-<!-- <a
-  href="https://github.com/NG-ZORRO/ng-zorro-antd"
-  target="_blank"
-  style="
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-  "
->
-  <img
-    height="300"
-    src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg"
-  />
-</a> -->
-<button nz-button nzType="primary">Primary</button>
+
+<app-question-dialog [visible]="isVisible"></app-question-dialog>
+<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Add Question</span></button>
+<app-form-builder [sources]="this.qForm.value"></app-form-builder>

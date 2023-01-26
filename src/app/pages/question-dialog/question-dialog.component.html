@@ -1,0 +1,39 @@
+<nz-modal [(nzVisible)]="visible" nzTitle="Add a New Questions" (nzOnCancel)="handleCancel()">
+  <form nz-form name="form" [formGroup]="qForm">
+    <ng-container *nzModalContent>
+      <nz-form-item>
+        <nz-select formControlName="qType">
+          <nz-option nzValue="checkbox" nzLabel="Checkbox List V"></nz-option>
+          <nz-option nzValue="paragraph" nzLabel="Paragraph"></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="errorTpl">
+          <input nz-input placeholder="Type question here" formControlName="qContent" />
+          <ng-template #errorTpl let-control>
+            <ng-container class="error" *ngIf="qForm.get('qContent')?.hasError('required') && qForm.get('qContent')?.touched">The input is empty!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <div formArrayName="answers">
+          <div *ngFor="let answer of answers.controls; let i=index">
+            <nz-form-item>
+              <input nz-input placeholder="Add Answer Option" id="answer-{{ i }}" [formControlName]="i"/>
+            </nz-form-item>
+          </div>
+          <a nz-button [nzSize]="size" (click)="handleAddAns()" nzType="link">+ Add another answer</a>
+        </div>
+      </nz-form-item>
+      <nz-form-item>
+        <label nz-checkbox formControlName="qSpecify">Allow user to specify their own answer</label>
+      </nz-form-item>
+      <nz-form-item>
+        <label nz-checkbox formControlName="qReuired">This field is required</label>
+      </nz-form-item>
+    </ng-container>
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" [disabled]="qForm.invalid" (click)="handleOk()" [nzLoading]="isConfirmLoading">Submit</button>
+    </div>
+  </form>
+</nz-modal>

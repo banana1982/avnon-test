@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'avnon-test';
+  isVisible = false;
+
+  showModal(): void {
+    this.isVisible = !this.isVisible && true;
+  }
 }

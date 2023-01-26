@@ -1,0 +1,10 @@
+<nz-card style="width:600px;" *ngIf="sources && sources.length > 0">
+  <form nz-form [formGroup]="formBuild" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired>Please tell us about yourself</nz-form-label>
+      <nz-form-control [nzSm]="16" [nzXs]="24">
+        <textarea rows="4" nz-input required formControlName="info"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-card>
