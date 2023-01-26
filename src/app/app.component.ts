@@ -1,20 +1,20 @@
+import { IAnswer } from './pages/question-dialog/answer.model';
 import { IQuestion } from './pages/question-dialog/question.model';
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { FormBuilderComponent } from './pages/form-builder/form-builder.component';
+import { NzButtonSize } from 'ng-zorro-antd/button';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'avnon-test';
-  isVisible = false;
-  input: IQuestion | undefined;
-  questions: IQuestion[] = [];
-  showModal(): void {
-    this.isVisible = !this.isVisible && true;
-  }
-  handleAddNewQuestion(data: IQuestion[]) {
-    this.questions = data;
-  }
+export class AppComponent implements OnInit {
+  constructor() {}
+
+  ngOnInit(): void {}
+  
 }
+

@@ -1,3 +1,4 @@
+import { FormAnswerComponent } from './pages/form-answer/form-answer.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -30,7 +31,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   declarations: [
     AppComponent,
     QuestionDialogComponent,
-    FormBuilderComponent
+    FormBuilderComponent,
+    FormAnswerComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,27 @@
+<nz-card style="width:600px;">
+  <form nz-form name="form" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzRequired>Please tell us about yourself: </nz-form-label>
+      <nz-form-control>
+        <nz-form-label>{{ data.info }}</nz-form-label>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngFor="let question of data.questions">
+      <nz-form-label *ngIf="question.qReuired" nzRequired>{{ question.qContent }}: </nz-form-label>
+      <nz-form-label *ngIf="!question.qReuired">{{ question.qContent }}: </nz-form-label>
+      <nz-form-control *ngIf="question.qType === 'checkbox'; else paragraph">
+        <nz-form-item *ngFor="let answer of question.ans; let idx=index">
+          <label id="answer-{{idx}}" >{{ answer.value }}</label>
+          <ng-container *ngIf="answer.value === 'others' && answer.status">
+            <label>{{ answer.subValue }}</label>
+          </ng-container>
+        </nz-form-item>
+      </nz-form-control>
+      <ng-template #paragraph>
+        <nz-form-control>
+  
+        </nz-form-control>
+      </ng-template>
+    </nz-form-item>
+  </form>
+</nz-card>

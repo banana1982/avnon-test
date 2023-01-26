@@ -51,6 +51,12 @@ export class QuestionDialogComponent implements OnInit {
       console.log(this.qForm.value);
       const data = this.qForm.value as IQuestion;
       data.answers?.push('others');
+      data.ans = data.answers?.map(a => {
+        return {
+          value: a,
+          status: false
+        }
+      });
       this.questions.push(data);
       this.ngOnAddNew.emit(this.questions);
       this.initForm();
